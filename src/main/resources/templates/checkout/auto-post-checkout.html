@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecting...</title>
+</head>
+<body>
+<form id="redirectForm" action="/checkout" method="post">
+  <input type="hidden" name="cartId" th:value="${cartId}" />
+  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+</form>
+
+<script>
+  document.getElementById("redirectForm").submit();
+</script>
+</body>
+</html>

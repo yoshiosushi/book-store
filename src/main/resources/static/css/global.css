@@ -1,0 +1,5 @@
+.product-image {
+  width: 180px;
+  height: 200px;
+  object-fit: contain; /* 枠内に収めて全部見せる（空白あり） */
+}

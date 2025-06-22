@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>送り先住所登録</title>
+
+    <!-- Bootstrap CSSの読み込み -->
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<!-- ヘッダーの読み込み -->
+<div th:insert="fragments/header :: headerFragment"></div>
+
+<div class="main">
+    <h1 class="mt-3">送り先住所の登録</h1>
+
+    <div class="main-container">
+        <div class="alert alert-warning" role="alert" th:if="${errorMessage}" th:text="${errorMessage}"></div>
+
+        <form action="#" th:action="@{/address/register}" method="post" th:object="${registerForm}">
+            <div class="mt-3">
+                郵便番号
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control"
+                           placeholder="例：000" aria-label="postalCodeF" th:field="*{postalCodeF}"
+                           th:classappend="${#fields.hasErrors('postalCodeF')} ? ' is-invalid' : ''">
+                    <span class="input-group-text">-</span>
+                    <input type="text" class="form-control"
+                           placeholder="例：0000" aria-label="postalCodeB" th:field="*{postalCodeB}"
+                           th:classappend="${#fields.hasErrors('postalCodeB')} ? ' is-invalid' : ''">
+                    <p class="invalid-feedback" th:if="${#fields.hasErrors('postalCodeF') or #fields.hasErrors('postalCodeB')}">
+                        半角数字(0~9)を入力してください</p>
+                </div>
+            </div>
+
+            <div class="mt-3">
+                送り先住所
+                <input type="text" name="forwardAddress" class="form-control"
+                       placeholder="例：○○県△△市□□町×丁目 ABCマンション101号室" th:field="*{forwardAddress}"
+                       th:classappend="${#fields.hasErrors('forwardAddress')} ? ' is-invalid' : ''">
+                <p class="invalid-feedback" th:if="${#fields.hasErrors('forwardAddress')}" th:errors="*{forwardAddress}">
+                    (errors)</p>
+            </div>
+
+            <div class="mt-3">
+                氏名
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control" name="lastName"
+                               placeholder="姓" aria-label="" th:field="*{lastName}"
+                               th:classappend="${#fields.hasErrors('lastName')} ? ' is-invalid' : ''">
+                        <p class="invalid-feedback" th:if="${#fields.hasErrors('lastName')}"  th:errors="*{lastName}">
+                            (errors)</p>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" name="firstName"
+                               placeholder="名" aria-label="" th:field="*{firstName}"
+                               th:classappend="${#fields.hasErrors('firstName')} ? ' is-invalid' : ''">
+                        <p class="invalid-feedback" th:if="${#fields.hasErrors('firstName')}"  th:errors="*{firstName}">
+                            (errors)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-3">
+                電話番号
+                <input type="text" id="phoneInput" name="phone" class="form-control"
+                       placeholder="例：000-0000-0000" th:field="*{phone}"
+                       th:classappend="${#fields.hasErrors('phone')} ? ' is-invalid' : ''">
+                <p class="invalid-feedback" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">(errors)</p>
+            </div>
+
+            <div class="mt-3">
+                <input type="hidden" name="status" th:value="toConfirm" class="form-control">
+                <input type="hidden" name="fromAccountPage" th:value="${fromAccountPage}" class="form-control">
+                <button type="submit" class="btn btn-primary">確認画面へ</button>
+            </div>
+        </form>
+
+        <form action="#" th:action="@{${linkToList}}" method="get">
+            <div class="mt-3">
+                <button type="submit" class="btn btn-primary">戻る</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="content-section" style="margin-bottom: 50px;"></div>
+<!-- Bootstrap JSと依存ライブラリの読み込み -->
+<script th:src="@{/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+</body>
+</html>

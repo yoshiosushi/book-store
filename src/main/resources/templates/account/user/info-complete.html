@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>アカウント情報変更完了</title>
+
+    <!-- Bootstrap CSSの読み込み -->
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<h1 class="mt-3">アカウント情報の変更が完了しました</h1>
+
+<div class="sub-container">
+    <div th:object="${updateForm}">
+        <div class="mt-3" >ユーザ名 :
+            <th th:text="*{username}">(username)</th>
+        </div>
+        <div class="mt-3" >Email :
+            <th th:text="*{email}">(email)</th>
+        </div>
+        <div class="mt-3" >電話番号 :
+            <th th:text="*{phone}">(phone)</th>
+        </div>
+    </div>
+
+    <form action="#" th:action="@{/account/user}" method="get">
+        <div class="mt-3">
+            <button type="submit" class="btn btn-primary">ログインとセキュリティへ戻る</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

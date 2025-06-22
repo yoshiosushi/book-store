@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>アカウント情報変更確認画面</title>
+
+    <!-- Bootstrap CSSの読み込み -->
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<h1 class="mt-3">以下の内容で変更します</h1>
+
+<div class="main-container">
+    <div th:object="${updateForm}">
+        <div class="mt-3" >ユーザ名 :
+            <th th:text="*{username}">(username)</th>
+        </div>
+        <div class="mt-3" >Email :
+            <th th:text="*{email}">(email)</th>
+        </div>
+        <div class="mt-3" >電話番号 :
+            <th th:text="*{phone}">(phone)</th>
+        </div>
+
+        <form action="#" th:action="@{/account/user/info-update/complete}" method="post">
+            <input type="hidden" id="usernameInput" name="username" th:value="*{username}" class="form-control">
+            <input type="hidden" id="emailInput" name="email" th:value="*{email}" class="form-control">
+            <input type="hidden" id="phoneInput" name="phone" th:value="*{phone}" class="form-control">
+
+            <p class="mt-3">確認用パスワードの入力(ご登録済のパスワードを入力してください。) ： </p>
+            <input type="password" id="passwordInput" name="checkPassword" class="form-control"
+                   th:classappend="${errorMessage} ? ' is-invalid' : ''">
+            <p class="text text-danger" th:if="${errorMessage}" th:text="${errorMessage}"></p>
+
+            <button type="submit" class="mt-3 btn btn-primary">更新</button>
+        </form>
+        <form action="#" th:action="@{/account/user/info-update}" method="get">
+            <input type="hidden" name="username" th:value="*{username}" class="form-control">
+            <input type="hidden" name="email" th:value="*{email}" class="form-control">
+            <input type="hidden" name="phone" th:value="*{phone}" class="form-control">
+            <input type="hidden" name="status" value="edited" class="form-control">
+            <button type="submit" class="mt-3 btn btn-primary">戻る</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

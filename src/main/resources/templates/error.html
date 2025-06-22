@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>エラー</title>
+
+    <!-- Bootstrap CSSの読み込み -->
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<h1 class="mt-3">エラーが発生しました</h1>
+<p class="sub-container">恐れ入りますがログイン画面からやり直してください</p>
+
+<form class="sub-container" action="#" th:action="@{/login}" method="get">
+    <div class="mt-3">
+        <button type="submit" class="btn btn-primary">ログインページへ</button>
+    </div>
+</form>
+
+<div class="content-section" style="margin-bottom: 50px;"></div>
+</body>
+</html>

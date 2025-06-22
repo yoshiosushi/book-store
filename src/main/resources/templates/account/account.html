@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>アカウント情報確認</title>
+
+    <!-- Bootstrap CSSの読み込み -->
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<!-- ヘッダーの読み込み -->
+<div th:insert="fragments/header :: headerFragment"></div>
+
+<div class="main">
+    <h1 class="mt-3">アカウントサービス</h1>
+
+    <div class="main-container">
+        <div class="mt-3">
+            <div class="card" style="width: 18rem;">
+                <a href="#" th:href="@{/account/user}" class="link-dark">
+                <div class="card-body">
+                    <h5 class="card-title">ログインとセキュリティ</h5>
+                    <p class="card-text">アカウント情報の変更</p>
+                </div>
+                </a>
+            </div>
+        </div>
+        <div class="mt-3">
+            <div class="card" style="width: 18rem;">
+                <a href="#" th:href="@{/account/address}" class="link-dark">
+                <div class="card-body">
+                    <h5 class="card-title">アドレス帳</h5>
+                    <p class="card-text">登録住所の追加・変更</p>
+                </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content-section" style="margin-bottom: 50px;"></div>
+<!-- Bootstrap JSと依存ライブラリの読み込み -->
+<script th:src="@{/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+</body>
+</html>

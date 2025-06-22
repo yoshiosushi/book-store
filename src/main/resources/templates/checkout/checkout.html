@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>購入手続き</title>
+
+    <!-- Bootstrap, CSSの読み込み -->
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<!-- ヘッダーの読み込み -->
+<div th:insert="fragments/header :: headerFragment"></div>
+
+<div class="main">
+    <h1 class="mt-3">確認画面</h1>
+
+    <div class="sub-container">
+        <a href="#" th:href="@{/cart}">カートに戻る</a>
+        <a class="sub-container" href="#" th:href="@{/}">商品一覧に戻る</a>
+
+        <div class="mt-3 alert alert-warning" role="alert" th:if="${subtotal <= 0}">
+            カートに商品が入っていません！
+        </div>
+        <div class="mt-3 alert alert-warning" role="alert" th:if="${!(isInStock)}">
+            ご注文数の変更が必要です！
+        </div>
+
+        <form action="#" th:action="@{/checkout/complete}" method="post">
+            <div class="mt-3">
+                <input type="hidden" name="cartId" th:value="${cartId}" class="form-control">
+                <input type="hidden" name="defaultAddress" th:value="${defaultAddress}" class="form-control">
+                <button type="submit" class="btn btn-primary"
+                        th:disabled="${(subtotal <= 0) or (defaultAddress == null) or !(isInStock)}">注文を確定する</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="main-container">
+        <h3 class="mt-3">お届け先</h3>
+        <th:block th:if="${defaultAddress != null}">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body" th:object="${defaultAddress}">
+                    <h5 class="card-title" th:text="*{lastName} + ' ' + *{firstName}">(name)</h5>
+                    <li class="list-group-item" th:text="'〒' + *{postalCodeF} + '-' + *{postalCodeB}">(postalCode)</li>
+                    <li class="list-group-item" th:text="*{forwardAddress}">(forwardAddress)</li>
+                    <li class="list-group-item" th:text="'電話番号 ： ' + *{phone}">(phone)</li>
+                </div>
+            </div>
+            <a href="#" th:href="@{/address}">お届け先を変更する</a>
+        </th:block>
+        <th:block th:if="${defaultAddress == null}">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">選択されていません</h5>
+                    <a href="#" th:href="@{/address}">アドレス帳からお届け先を選択する</a>
+                </div>
+            </div>
+
+            <a href="#" th:href="@{/address/redirect-to-register}">お届け先を登録する</a>
+        </th:block>
+
+        <h3 class="mt-3">お支払い方法</h3>
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title" >コンビニ決済</h5>
+                <li class="list-group-item">※商品は代金のお支払い後に発送されます。</li>
+            </div>
+        </div>
+
+        <h3 class="mt-3">ご注文商品</h3>
+        <div class="mt-3" th:each="cartItem : ${cartItemList}">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img th:src="${productMap[cartItem.cartItemId].image}" class="product-image" alt="image">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title"
+                                th:text=${productMap[cartItem.cartItemId].productName}>
+                                (product_name)</h5>
+                            <li class="list-group-item"
+                                th:text="'単価 ： ¥' + ${#numbers.formatInteger(productMap[cartItem.cartItemId].price, 3, 'COMMA')}">
+                                (price)</li>
+                            <li class="list-group-item"
+                                th:text="'在庫 ： ' + ${productMap[cartItem.cartItemId].stock}">
+                                (stock)</li>
+                            <li class="list-group-item"
+                                th:text="'ご注文数 ： ' + ${cartItem.quantity}">
+                                (quantity)</li>
+                            <li class="text-danger"
+                                th:if="${cartItem.quantity > productMap[cartItem.cartItemId].stock}">
+                                ご注文数が在庫数を上回っています。</li>
+                            <a href="#" th:href="@{/cart}">変更する</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h4 class="mt-3" th:text="'小計 ： ¥' + ${formatSubtotal}">(subtotal)</h4>
+        <h4 th:text="'送料 ： ¥' + ${postage}">(postage)</h4>
+        <p>5,000円以上のご注文で送料無料！</p>
+        <h3 class="mt-3" th:text="'合計 ： ¥' + ${total}">(total)</h3>
+    </div>
+</div>
+
+<div class="content-section" style="margin-bottom: 50px;"></div>
+<!-- Bootstrap JSと依存ライブラリの読み込み -->
+<script th:src="@{/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+
+</body>
+</html>

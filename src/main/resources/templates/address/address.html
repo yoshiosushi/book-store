@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>アドレス一覧</title>
+
+    <!-- Bootstrap, CSSの読み込み -->
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<!-- ヘッダーの読み込み -->
+<div th:insert="fragments/header :: headerFragment"></div>
+
+<div class="main">
+    <h1 class="mt-3">アドレス一覧</h1>
+
+    <div class="main-container">
+        <div th:each="address : ${addressList}" class="mt-3">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title"
+                                th:text="'お届け先 ： ' + ${address.lastName} + ' ' + ${address.firstName}">
+                                (name)</h5>
+                            <li class="list-group-item"
+                                th:text="'〒' + ${address.postalCodeF} + '-' + ${address.postalCodeB}">
+                                (postalCode)</li>
+                            <li class="list-group-item"
+                                th:text="${address.forwardAddress}">
+                                (forwardAddress)</li>
+                            <li class="list-group-item"
+                                th:text="'電話番号 ： ' + ${address.phone}">
+                                (phone)</li>
+                            <form action="#" th:action="@{/address/update}" method="post">
+                                <input type="hidden" name="addressId"
+                                       th:value="${address.addressId}" class="form-control">
+                                <button type="submit" class="btn btn-primary">ここに送る</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="#" th:href="@{/address/redirect-to-register}">登録する</a>
+
+        <form action="#" th:action="@{/checkout}" method="post">
+            <div class="mt-3">
+                <input type="hidden" name="cartId" th:value="${cartId}" class="form-control">
+                <button type="submit" class="btn btn-primary">購入手続きへ戻る</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="content-section" style="margin-bottom: 50px;"></div>
+<!-- Bootstrap JSと依存ライブラリの読み込み -->
+<script th:src="@{/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>送り先住所登録確認</title>
+
+    <!-- Bootstrap, CSSの読み込み -->
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<!-- ヘッダーの読み込み -->
+<div th:insert="fragments/header :: headerFragment"></div>
+
+<div class="main">
+    <h1 class="mt-3">以下内容で送り先住所を登録します</h1>
+
+    <div class="sub-container">
+        <div th:object="${registerForm}">
+            <form action="#" th:action="@{/address/register/complete}" method="post">
+                <div class="mt-3" >郵便番号 :
+                    <th th:text="'〒' + *{postalCodeF} + '-' + *{postalCodeB}">(postalCode)</th>
+                    <input type="hidden" name="postalCodeF" th:value="*{postalCodeF}" class="form-control">
+                    <input type="hidden" name="postalCodeB" th:value="*{postalCodeB}" class="form-control">
+                </div>
+
+                <div class="mt-3" >送り先住所 :
+                    <th th:text="*{forwardAddress}">(forwardAddress)</th>
+                    <input type="hidden" name="forwardAddress" th:value="*{forwardAddress}" class="form-control">
+                </div>
+
+                <div class="mt-3" >送り先氏名 :
+                    <th th:text="*{lastName} + ' ' + *{firstName}">(name)</th>
+                    <input type="hidden" name="lastName" th:value="*{lastName}" class="form-control">
+                    <input type="hidden" name="firstName" th:value="*{firstName}" class="form-control">
+                </div>
+
+                <div class="mt-3" >電話番号 :
+                    <th th:text="*{phone}">(phone)</th>
+                    <input type="hidden" name="phone" th:value="*{phone}" class="form-control">
+                </div>
+
+                <div class="mt-3">
+                    <input type="hidden" name="fromAccountPage" th:value="${fromAccountPage}" class="form-control">
+                    <button type="submit" class="btn btn-primary">登録</button>
+                </div>
+            </form>
+
+
+        <form action="#" th:action="@{/address/register}" method="post">
+            <div class="mt-3">
+                <input type="hidden" name="postalCodeF" th:value="*{postalCodeF}" class="form-control">
+                <input type="hidden" name="postalCodeB" th:value="*{postalCodeB}" class="form-control">
+                <input type="hidden" name="forwardAddress" th:value="*{forwardAddress}" class="form-control">
+                <input type="hidden" name="lastName" th:value="*{lastName}" class="form-control">
+                <input type="hidden" name="firstName" th:value="*{firstName}" class="form-control">
+                <input type="hidden" name="phone" th:value="*{phone}" class="form-control">
+                <input type="hidden" name="status" th:value="toRegister" class="form-control">
+                <input type="hidden" name="fromAccountPage" th:value="${fromAccountPage}" class="form-control">
+                <button type="submit" class="btn btn-primary">戻る</button>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
+
+<div class="content-section" style="margin-bottom: 50px;"></div>
+</body>
+</html>
