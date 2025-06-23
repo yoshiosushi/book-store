@@ -1,5 +1,6 @@
 # アプリケーション名
 ショッピングサイト「Book Store」
+
 Spring Boot + Thymeleaf + MyBatis で構築したECサイト風アプリです。
 
 # 使用技術スタック
@@ -13,14 +14,16 @@ Spring Boot + Thymeleaf + MyBatis で構築したECサイト風アプリです�
 - H2 Database (Spring Bootに準拠)
 - Gradle
 
-# 起動方法(開発用)
+# 起動方法
 1. プロジェクトをクローン
-git clone https://github.com/yoshiosushi/book-store.git 
+git clone https://github.com/yoshiosushi/book-store.git
+
 cd book-store
-2. アプリ起動
+3. アプリ起動
 gradlew.bat bootRun (Windowsの場合)
+
 ./gradlew bootRun (Mac/Linuxの場合)
-3. ブラウザで http://localhost:8080 にアクセス
+4. ブラウザで http://localhost:8080 にアクセス
 
 # 主な機能
 - ユーザー登録／ログイン／ログアウト
