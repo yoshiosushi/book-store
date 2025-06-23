@@ -16,14 +16,18 @@ Spring Boot + Thymeleaf + MyBatis で構築したECサイト風アプリです�
 
 # 起動方法
 1. プロジェクトをクローン
+
 git clone https://github.com/yoshiosushi/book-store.git
 
 cd book-store
-3. アプリ起動
+
+2. アプリ起動
+
 gradlew.bat bootRun (Windowsの場合)
 
 ./gradlew bootRun (Mac/Linuxの場合)
-4. ブラウザで http://localhost:8080 にアクセス
+
+3. ブラウザで http://localhost:8080 にアクセス
 
 # 主な機能
 - ユーザー登録／ログイン／ログアウト
